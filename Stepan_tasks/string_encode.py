@@ -18,7 +18,7 @@ for i in inp_string:
     pass_string += i
 
     if i.isalpha():
-        next_items = inp_string.replace(pass_string, '')
+        next_items = inp_string.replace(pass_string, '', 1)
         if not next_items:
             count = 1 if not count else count
             if i in result_dict.keys():
