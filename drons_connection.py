@@ -1,15 +1,18 @@
+from datetime import datetime
 """
 Дан массив прямых связей между дронами - кто с кем дружит. Каждая такая связь представлена,
  как строка с двумя именами разделеными дефисом. Для примера: "dr101-mr99" означает
  что dr101 и mr99 дружат между собой. Кроме этого даны два имени. Попробуйте определить,
  связаны ли они через других дронов, вне зависимости от глубины этих связей
 """
+start_time = datetime.now()
 
 
 def check_connection(network, first, second):
 
     friends = [i.split('-') for i in network]
     connections = [[] for i in network]
+    all_drones = set([j for i in network for j in i.split('-')])
     usefull_drones = []
     connect = False
 
@@ -29,7 +32,9 @@ def check_connection(network, first, second):
                     connections[i].append(dron[1])
                     usefull_drones.append(dron[0])
                     usefull_drones.append(dron[1])
-                pass
+            if set(usefull_drones) == all_drones:
+                break
+
 
     connections = [i for i in connections if i != []]
     for connection in connections:
@@ -39,8 +44,17 @@ def check_connection(network, first, second):
 
 check_connection(
         ("dr101-mr99", "mr99-out00", "dr101-out00", "src-out01", "scout1-scout2",
-         "scout3-scout1", "scout1-scout4", "scout4-sscout", "sscout-super", "dr101-src"),
+         "scout3-scout1", "scout1-scout4", "scout4-sscout", "sscout-super", "dr101-src", "mr99-out00", "dr101-out00", "src-out01", "scout1-scout2",
+         "scout3-scout1", "scout1-scout4", "scout4-sscout", "mr99-out00", "dr101-out00", "src-out01", "scout1-scout2",
+         "scout3-scout1", "scout1-scout4", "scout4-sscout", "mr99-out00", "dr101-out00", "src-out01", "scout1-scout2",
+         "scout3-scout1", "scout1-scout4", "scout4-sscout", "mr99-out00", "dr101-out00", "src-out01", "scout1-scout2",
+         "scout3-scout1", "scout1-scout4", "scout4-sscout", "mr99-out00", "dr101-out00", "src-out01", "scout1-scout2",
+         "scout3-scout1", "scout1-scout4", "scout4-sscout", "mr99-out00", "dr101-out00", "src-out01", "scout1-scout2",
+         "scout3-scout1", "scout1-scout4", "scout4-sscout", "mr99-out00", "dr101-out00", "src-out01", "scout1-scout2",
+         "scout3-scout1", "scout1-scout4", "scout4-sscout", "mr99-out00", "dr101-out00", "src-out01", "scout1-scout2",
+         "scout3-scout1", "scout1-scout4", "scout4-sscout"),
         "scout2", "scout3")
+print("--- %s seconds ---" % str((datetime.now() - start_time)))
 
 
 if __name__ == '__main__':
