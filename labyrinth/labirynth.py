@@ -2,6 +2,7 @@ from typing import List
 from labyrinth.function import *
 
 
+@log
 def checkio(maze_map: List[List[int]]) -> str:
     """
     Нахождение выхода из лабиринта
@@ -50,7 +51,10 @@ if __name__ == '__main__':
             pos = pos[0] + move[0], pos[1] + move[1]
             # show_current_position(labyrinth, pos)
             if pos == goal:
-                print('Проверка успешно пройдено, сгенерированный маршрут верный, кол-во шагов: {}'.format(len(route)))
+                print(
+                    'Проверка успешно пройдено, сгенерированный маршрут верный, кол-во шагов: {}\n\n\n\n\n\n\n\n\n'
+                    ''.format(
+                        len(route)))
                 return True
             if labyrinth[pos[0]][pos[1]] == 1:
                 show_current_position(labyrinth, pos)

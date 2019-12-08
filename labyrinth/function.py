@@ -68,7 +68,6 @@ def show_way(map, way):
         for j in range(len(print_map[i])):
             if (i, j) in way or (i, j) == (1, 1):
                 print_map[i][j] = ' @ '
-                continue
             else:
                 print_map[i][j] = ' . ' if print_map[i][j] == 1 else '   '
         print_map[i][-1] = print_map[i][-1] + '\n'
@@ -124,3 +123,22 @@ def get_right_way(map, pos, last_coord):
                     right_ways.remove(i)
 
     return random.choice(right_ways)
+
+
+def log(func):
+    """Декоратор для оформления"""
+
+    def get_params(maze_map):
+        print('================================================================')
+        print('Начинается построение маршрута')
+        print('================================================================')
+        way = func(maze_map)
+
+        print('================================================================')
+        print('маршрут построен')
+        print('================================================================')
+        return way
+
+    return get_params
+
+
