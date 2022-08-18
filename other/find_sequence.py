@@ -16,16 +16,33 @@ def checkio(matrix: List[List[int]]) -> bool:
     matrix = [[str(j) for j in i] for i in matrix]
     symbols = re.compile(f'(?:{"|".join({str(j) + "{4}" for i in matrix for j in i})})')
     columns = [[] for i in matrix]
+
+    right_diagonal = []
+    for i in range(-len(matrix[0]), len(matrix[0]) * 2):
+        diagonal = []
+        for j in range(len(matrix[0])):
+            if len(matrix[0]) > i >= 0:
+                diagonal.append(matrix[j][i])
+            i += 1
+        if diagonal:
+            right_diagonal.append(diagonal)
+
+    left_diagonal = []
+    for i in range(0, len(matrix[0]) * 2):
+        diagonal = []
+        for j in range(len(matrix[0])):
+            if len(matrix[0]) > i >= 0:
+                diagonal.append(matrix[j][i])
+            i -= 1
+        if diagonal:
+            left_diagonal.append(diagonal)
+
     for line in matrix:
         for i, column in enumerate(line):
-            columns[i].append(str(column))
-    for column in columns:
-        if symbols.search(''.join(column)):
-            return True
-    for line in matrix:
-        if symbols.search(''.join(line)):
-            return True
-    return False
+            columns[i].append(column)
+
+    result = any([bool(symbols.search(''.join(i))) for i in (matrix + right_diagonal + left_diagonal + columns)])
+    return result
 
 
 if __name__ == '__main__':
