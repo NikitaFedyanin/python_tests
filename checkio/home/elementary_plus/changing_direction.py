@@ -9,9 +9,9 @@ def changing_direction(elements: list[int]) -> int:
     result = []
     if len(elements) > 2:
         for i, v in enumerate(elements[1:]):
-            current_state = v - elements[i]
-            if current_state != 0 and (not result or (result[-1] > 0) != (current_state > 0)):
-                result.append(current_state)
+            delta = v - elements[i]
+            if delta != 0 and (not result or (result[-1] > 0) != (delta > 0)):
+                result.append(delta)
     return len(result) - 1 if result else 0
 
 
