@@ -8,9 +8,8 @@
 def changing_direction(elements: list[int]) -> int:
     result = []
     if len(elements) > 2:
-        past_number = elements[0]
-        for i in elements[1:]:
-            current_state, past_number = i - past_number, i
+        for i, v in enumerate(elements[1:]):
+            current_state = v - elements[i]
             if current_state != 0 and (not result or (result[-1] > 0) != (current_state > 0)):
                 result.append(current_state)
     return len(result) - 1 if result else 0
