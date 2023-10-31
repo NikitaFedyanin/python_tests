@@ -14,7 +14,21 @@ from datetime import datetime
 from typing import List, Optional
 
 
-def sum_light(els: List[datetime], start_watching: Optional[datetime] = None, end_watching: Optional[datetime] = None) -> int:
+def sum_light(els: List[datetime], start_watching: Optional[datetime] = None,
+              end_watching: Optional[datetime] = None, ) -> int:
+    """how long the light bulb has been turned on"""
+    total = 0
+    els.append(end_watching)
+    for start, end in zip(els[::2], els[1::2]):
+        sec = (min(end_watching or end, max(start_watching or end, end)) - min(end_watching or end,
+                                                                               max(start_watching or start,
+                                                                                   start))).total_seconds()
+        total += sec
+    return total
+
+
+def sum_light2(els: List[datetime], start_watching: Optional[datetime] = None,
+               end_watching: Optional[datetime] = None) -> int:
     """
     how long the light bulb has been turned on
     """
@@ -46,10 +60,10 @@ if __name__ == "__main__":
     print("Example:")
     print(
         sum_light([
-datetime(2015, 1, 12, 10, 0, 0),
-datetime(2015, 1, 12, 10, 0, 10),
-datetime(2015, 1, 12, 11, 0, 0),
-datetime(2015, 1, 13, 11, 0, 0)
-])
+            datetime(2015, 1, 12, 10, 0, 0),
+            datetime(2015, 1, 12, 10, 0, 10),
+            datetime(2015, 1, 12, 11, 0, 0),
+            datetime(2015, 1, 13, 11, 0, 0)
+        ], datetime(2015, 1, 12, 10, 0, 5),
+            datetime(2015, 1, 12, 11, 0, 30))
     )
-
