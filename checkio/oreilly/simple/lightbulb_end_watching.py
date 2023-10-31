@@ -20,9 +20,7 @@ def sum_light(els: List[datetime], start_watching: Optional[datetime] = None,
     total = 0
     els.append(end_watching)
     for start, end in zip(els[::2], els[1::2]):
-        sec = (min(end_watching or end, max(start_watching or end, end)) - min(end_watching or end,
-                                                                               max(start_watching or start,
-                                                                                   start))).total_seconds()
+        sec = (min(end_watching or end, max(start_watching or end, end)) - min(end_watching or end, max(start_watching or start, start))).total_seconds()
         total += sec
     return total
 
@@ -64,6 +62,6 @@ if __name__ == "__main__":
             datetime(2015, 1, 12, 10, 0, 10),
             datetime(2015, 1, 12, 11, 0, 0),
             datetime(2015, 1, 13, 11, 0, 0)
-        ], datetime(2015, 1, 12, 10, 0, 5),
+        ], datetime(2015, 1, 12, 11, 0, 5),
             datetime(2015, 1, 12, 11, 0, 30))
     )
